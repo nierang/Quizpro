@@ -1,12 +1,20 @@
 .layout {
-  display: flex;
-  height: 100vh; /* Full height of the viewport */
+  display: grid;
+  grid-template-columns: 250px 1fr; /* Sidebar and content */
+  height: 100vh; /* Full viewport height */
+}
+
+.sidebar {
+  padding: 20px;
+  overflow-y: auto; /* Make the sidebar scrollable if needed */
 }
 
 .content {
-  flex: 1; /* Take up the remaining space */
-  padding: 16px;
-  position: relative; /* Required for positioning the LanguageToggle */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Enable scrolling for the content area */
+  padding: 20px;
+  background-color: var(--background-color);
 }
 
 .languageToggle {

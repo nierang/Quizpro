@@ -69,6 +69,11 @@
   color: var(--white-color);
 }
 
+.menuItem.active .menuItemicon {
+  color: var(--white-color);
+}
+
+
 .userProfile {
   display: flex;
   align-items: center;

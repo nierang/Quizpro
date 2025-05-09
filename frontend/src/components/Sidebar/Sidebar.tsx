@@ -1,6 +1,6 @@
 import React from "react";
+import { NavLink } from "react-router-dom"; // Import NavLink for navigation
 import Button from "../ui/Button";
-import { Home, User, FileText, Calendar, BarChart2, Settings } from "lucide-react";
 import styles from "./Sidebar.module.css";
 import { iconMap } from "../../utils/iconMap";
 
@@ -16,31 +16,60 @@ const Sidebar = () => {
 
       {/* Menu */}
       <nav className={styles.menu}>
-        <div className={styles.menuItem}>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? `${styles.menuItem} ${styles.active}` : styles.menuItem
+          }
+        >
           <iconMap.home className={styles.menuItemicon} />
           <span>Dashboard</span>
-        </div>
-        <div className={styles.menuItem}>
+        </NavLink>
+        <NavLink
+          to="/browser"
+          className={({ isActive }) =>
+            isActive ? `${styles.menuItem} ${styles.active}` : styles.menuItem
+          }
+        >
           <iconMap.browser className={styles.menuItemicon} />
           <span>Browser</span>
-        </div>
-        <div className={styles.menuItem}>
+        </NavLink>
+        <NavLink
+          to="/my-class"
+          className={({ isActive }) =>
+            isActive ? `${styles.menuItem} ${styles.active}` : styles.menuItem
+          }
+        >
           <iconMap.myclass className={styles.menuItemicon} />
           <span>My Class</span>
-        </div>
-        <div className={styles.menuItem}>
+        </NavLink>
+        <NavLink
+          to="/library"
+          className={({ isActive }) =>
+            isActive ? `${styles.menuItem} ${styles.active}` : styles.menuItem
+          }
+        >
           <iconMap.library className={styles.menuItemicon} />
           <span>Library</span>
-        </div>
-        <div className={styles.menuItem}>
+        </NavLink>
+        <NavLink
+          to="/notifications"
+          className={({ isActive }) =>
+            isActive ? `${styles.menuItem} ${styles.active}` : styles.menuItem
+          }
+        >
           <iconMap.notifications className={styles.menuItemicon} />
           <span>Notification</span>
-        </div>
-        
-        <div className={styles.menuItem}>
+        </NavLink>
+        <NavLink
+          to="/settings"
+          className={({ isActive }) =>
+            isActive ? `${styles.menuItem} ${styles.active}` : styles.menuItem
+          }
+        >
           <iconMap.settings className={styles.menuItemicon} />
           <span>Settings</span>
-        </div>
+        </NavLink>
       </nav>
 
       {/* User Profile Section */}

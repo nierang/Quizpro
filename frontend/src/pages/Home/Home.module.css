@@ -1,22 +1,92 @@
-.home {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f0f0f0;
+.homePage {
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
+.header {
   margin-bottom: 20px;
 }
 
-.content {
-  width: 80%;
-  max-width: 800px;
-  text-align: center;
-  color: #666;
+.header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.homeContainer {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.rightColumn {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.statsSection,
+.chartSection,
+.trendsSection {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.statsSection h2,
+.chartSection h2,
+.trendsSection h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.trendsSection ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.trendsSection li {
+  margin-bottom: 5px;
+}
+
+.bottomSection {
+  margin-top: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.challengesList {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 20px; /* Add spacing between Active and Upcoming sections */
+}
+
+.challengeSection {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.challengeSection h3 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.challengeSection ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.challengeSection li {
+  margin-bottom: 5px;
 }

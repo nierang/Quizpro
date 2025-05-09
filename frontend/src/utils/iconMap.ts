@@ -5,6 +5,12 @@ import { ReactComponent as LibraryIcon } from "../assets/icons/library.svg";
 import { ReactComponent as NotificationIcon } from "../assets/icons/notification.svg";
 import { ReactComponent as SettingIcon } from "../assets/icons/setting.svg";
 import { ReactComponent as LogoutIcon } from "../assets/icons/logout.svg";
+import { ReactComponent as searchIcon } from "../assets/icons/search.svg";
+import { ReactComponent as gradeIcon } from "../assets/icons/grade.svg";
+import { ReactComponent as languageIcon } from "../assets/icons/language.svg";
+import { ReactComponent as questiontypeIcon } from "../assets/icons/questiontype.svg";
+import { ReactComponent as subjectsIcon } from "../assets/icons/subjects.svg";
+import { ReactComponent as starIcon } from "../assets/icons/star.svg";
 
 export const iconMap = {
   home: HomeIcon,
@@ -14,4 +20,10 @@ export const iconMap = {
   notifications: NotificationIcon,
   settings: SettingIcon,
   logoout: LogoutIcon,
+  search: searchIcon,
+  grade: gradeIcon,
+  language: languageIcon,
+  questiontype: questiontypeIcon,
+  subjects: subjectsIcon,
+  star: starIcon,
 };

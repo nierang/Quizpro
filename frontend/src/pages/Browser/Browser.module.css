@@ -1,31 +1,149 @@
-
-.browserContainer {
+.browserPage {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  gap: 20px; /* Add spacing between filters and grid */
   padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
 }
 
 .browserTitle {
-  font-size: 24px;
+  font-size: 2rem;
   font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.searchBar {
+  position: relative; /* Position relative for the icon */
+  margin-bottom: 16px;
+  height: 50px; /* Adjust the height */
+  width: 100%; /* Set to full width or adjust as needed */
+  max-width: 720px; /* Optional: Limit the maximum width */
+  border-radius: 25px; /* Adjust the border radius */
+  border: 2px solid var(--secondary-brand); /* Change the border color */
+  padding: 0 15px; /* Add padding for inner spacing */
+  font-size: 1rem; /* Adjust font size */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+  display: flex; /* Use flexbox to align items */
+  align-items: center; /* Center items vertically */
+}
+
+.searchBar input {
+  border: none;
+  outline: none;
+  flex: 1; /* Take up remaining space */
+  font-size: 1rem;
+  padding-left: 10px; /* Add spacing between the icon and text */
+  background: none;
+  color: var(--gray-color); /* Text color */
+}
+
+.searchBar input::placeholder {
+  color: var(--gray-color); /* Placeholder color */
+  opacity: 0.7; /* Adjust opacity for placeholder */
+}
+.searchIcon {
+  color: var(--primary-brand); /* Icon color */
+  font-size: 1.0rem; /* Adjust icon size */
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Add 8px space between each filter */
   margin-bottom: 16px;
 }
 
-.browserContent {
+.filterItem {
+  display: flex;
+  align-items: center; /* Align icon and select vertically */
+  height: 32px; /* Set height to 32px */
+  padding: 0 10px; /* Add padding for spacing */
+  border: 1px solid var(--gray-color); /* Border color */
+  border-radius: 8px; /* Rounded corners */
+  font-size: 0.9rem; /* Adjust font size */
+  color: var(--dark-color); /* Text color */
+}
+
+.filterItem select {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 0.9rem;
+  color: var(--dark-color); /* Text color */
+  margin-left: 8px; /* Add spacing between icon and select */
+  flex: 1; /* Allow select to take up remaining space */
+}
+
+.filterIcon {
+  font-size: 1rem; /* Adjust icon size */
+  color: var(--primary-brand); /* Icon color */
+}
+
+.challengesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.challengeCard {
+  background-color: var(--white-color); /* Card background color */
+  border: 1px solid var(--light-color);
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left; /* Align all text to the left */
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px; /* Add spacing between elements */
 }
 
-.browserItem {
-  padding: 15px;
-  background-color: #ffffff;
-  border-radius: 4px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+.challengeCard img {
+  width: 100%; /* Image takes full width of the card */
+  height: 200px; /* Maintain aspect ratio */
+  object-fit: cover;
+  border-radius: 12px; /* Add rounded corners */
 }
 
-.browserItem:hover {
-  transform: scale(1.02);
+.cardtext {
+  padding: 10px 20px 10px 20px; /* Add padding to the text */
+}
+
+.challengeCard h3 {
+  font-size: 1.0rem;
+  color: var(--dark-color); /* Title color */
+}
+
+.challengeCard p {
+  margin: 10px 0;
+  font-size: 0.9rem;
+  color: var(--dark-color);
+}
+
+.challengeCard .detailsRow {
+  display: flex;
+  justify-content: flex-start; /* Distribute items evenly in a row */
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--gray-color);
+}
+
+.challengeCard .detailsRow p {
+  border: 1px solid var(--light-color); /* Add a border */
+  background-color: var(--secondary-brand); /* Add a background color */
+  padding: 5px 10px; /* Add padding for spacing */
+  border-radius: 4px; /* Add rounded corners */
+  font-size: 0.9rem; /* Adjust font size */
+  color: var(--dark-color); /* Text color */
+}
+
+.collectedBy {
+  display: flex; /* Align icon and text in the same row */
+  align-items: center; /* Vertically align the icon and text */
+  gap: 8px; /* Add spacing between the icon and text */
+  font-size: 0.9rem; /* Adjust font size */
+  color: var(--gray-color); /* Text color */
+}
+
+.collectedByIcon {
+  font-size: 1rem; /* Adjust icon size */
+  color: var(--primary-brand); /* Icon color */
 }
