@@ -1,0 +1,28 @@
+.layout {
+  display: flex;
+  height: 100vh; /* Full height of the viewport */
+}
+
+.content {
+  flex: 1; /* Take up the remaining space */
+  padding: 16px;
+  position: relative; /* Required for positioning the LanguageToggle */
+}
+
+.languageToggle {
+  position: absolute;
+  top: 16px; /* Distance from the top */
+  right: 16px; /* Distance from the right */
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.languageToggle:hover {
+  background-color: var(--primary-hover-color);
+}

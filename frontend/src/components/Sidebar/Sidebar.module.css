@@ -1,0 +1,138 @@
+.sidebar {
+  width: 256px;
+  height: 100vh;
+  background-color: var(--white-color);
+  color: var(--dark-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  box-sizing: border-box; /* Include padding in height */
+  overflow-y: auto; /* Enable scrolling if content overflows */
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color:var(--primary-brand); /* Purple-700 */
+  margin-bottom: 64px;
+}
+
+.button {
+  margin-bottom: 40px;
+  width: 300px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 80%;
+  padding: 0 24px;
+  flex: 1; /* Allow the menu to take up available space */
+  overflow-y: auto; /* Make the menu scrollable if needed */
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  cursor: pointer;
+  transition: color 0.2s;
+  background-color: var(--white-color);
+  height: 52px;
+  border-radius: 26px;
+  padding-left: 24px;
+}
+
+.menuItemicon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  transition: transform 0.2s;
+  color: var(--dark-color);
+}
+
+.menuItem:hover {
+  color: var(--meduimgray-color);
+  transform: scale(1.05);
+  background-color: var(--light-color);
+}
+
+.menuItem:hover .menuItemicon {
+  transform: scale(1.1);
+  color: var(--meduimgray-color);
+}
+
+.menuItem.active {
+  background-color: var(--dark-color);
+  color: var(--white-color);
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  margin-top: auto; /* Push the user profile section to the bottom */
+  background-color: var(--white-color);
+}
+
+.userImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover;
+}
+
+.userInfo {
+  flex: 1;
+  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.userName {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--dark-color);
+}
+
+.userEmail {
+  font-size: 14px;
+  color: var(--meduimgray-color);
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  max-width: 130px; /* Set a maximum width for the email */
+  position: relative; /* Required for the tooltip */
+  cursor: pointer; /* Indicate that the email is interactive */
+}
+
+.userEmail:hover::after {
+  content: attr(data-full-email); /* Display the full email address */
+  position: absolute;
+  left: 0;
+  top: 100%; /* Position below the email */
+  background-color: #000000; /* Black background */
+  color: #ffffff; /* White text */
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 12px;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.logoutIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--dark-color);
+  object-fit: contain;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.logoutIcon:hover {
+  color: var(--gray-color) ;
+}

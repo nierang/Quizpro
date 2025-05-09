@@ -1,0 +1,59 @@
+@import "./color.css";
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--dark-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-gray-900 {
+  color: #1a202c;
+}
+
+.bg-gray-900 {
+  background-color: var(--background-color);
+}
+
+.bg-gray-300 {
+  background-color: var(--background-color);
+}
+
+.hover\:text-gray-300:hover {
+  color: var(--gray-color);
+}

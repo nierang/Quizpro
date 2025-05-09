@@ -1,0 +1,14 @@
+:root {
+    --primary-brand: #582eed; /* Purple-700 */
+    --secondary-brand: #C6BAEF; /* Purple-300 */
+    --brand-light: #F4F0FF; /* Purple-50 */
+    --sucess-color: #61B777; /* Green-500 */
+    --warning-color: #EEAD3D; /* Orange-500 */
+    --error-color: #F75858; /* Red-500 */
+    --dark-color: #060606;  /* Gray-900 */
+    --meduimgray-color: #727272; /* Gray-900 */
+    --gray-color: #9F9F9F; /* Gray-700 */
+    --light-color: #F1F1F1; /* Gray-100 */
+    --white-color: #FFFFFF; 
+    --background-color: #F6F8FA; /* Gray-50 */
+  }
