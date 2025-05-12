@@ -1,0 +1,167 @@
+  .loginPage {
+    display: flex;
+    height: 100vh;
+    background-color: var(--white-color);
+  }
+  
+  .leftSection {
+    flex: 0.5;
+    position: relative;
+    background-image: url('https://images.unsplash.com/photo-1580894732444-8ecded7900cd?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: right center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space between top and bottom sections */
+    padding: 20px;
+    color: var(--white-color); /* White text for contrast */
+  }
+
+    .topleft {
+    text-align: left;
+    padding: 20px; /* Add padding for the top left section */
+  }
+  
+    .bottomleft {
+    text-align: left;
+    padding: 20px;
+  }
+
+  .leftSection h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .leftSection span {
+    color: var(--primary-brand);
+  }
+
+  .leftSection h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .leftSection p {
+    font-size: 16px;
+    color: var(--background-color);
+  }
+  
+  .rightSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--dark-color);
+  }
+  
+  .title span{
+    color: var(--primary-brand);
+  }
+
+  .subtitle {
+    font-size: 16px;
+    margin-bottom: 100px;
+    color: var(--gray-color);
+  }
+  
+  .loginForm {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formGroup label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: var(--dark-color);
+  }
+  
+  .formGroup input {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid var(--gray-color);
+    background-color: transparent;
+  }
+  
+  .formGroup input:focus {
+    outline: none;
+    border-color: var(--primary-brand);
+  }
+  
+  .formGroupCheckbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .loginButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: var(--white-color);
+    background-color: var(--primary-brand);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 30px;
+  }
+  
+  .loginButton:hover {
+    background-color: var(--secondary-brand);
+  }
+  
+  .signUpText {
+    margin-top: 100px;
+    font-size: 14px;
+    color: var(--gray-color);
+  }
+  
+  .signUpText a {
+    color: var(--primary-brand);
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .signUpText a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Media Query for Small Screens */
+  @media (max-width: 768px) {
+    .loginPage {
+      flex-direction: column; /* Stack sections vertically */
+    }
+  
+    .leftSection {
+      display: none; /* Hide the left section */
+    }
+  
+    .rightSection {
+      flex: none;
+      width: 100%;
+      padding: 20px; /* Adjust padding for smaller screens */
+      box-shadow: none; /* Remove shadow for a cleaner look */
+    }
+  
+    .loginForm {
+      max-width: 100%; /* Allow the form to take full width */
+    }
+  }

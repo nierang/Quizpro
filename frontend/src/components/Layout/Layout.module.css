@@ -9,6 +9,14 @@
   overflow-y: auto; /* Make the sidebar scrollable if needed */
 }
 
+.sidebarHidden {
+  grid-template-columns: 1fr; /* Full width for content when Sidebar is hidden */
+}
+
+.sidebarHidden .content {
+  padding: 0; /* Remove padding when Sidebar is hidden */
+}
+
 .content {
   display: flex;
   flex-direction: column;

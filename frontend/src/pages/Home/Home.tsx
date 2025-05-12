@@ -31,9 +31,8 @@ const Home = () => {
         <div className={styles.leftColumn}>
           {/* Section 1: Total Classroom and Students */}
           <div className={styles.statsSection}>
-            <h2>Statistics</h2>
-            <p>Total Classrooms: 10</p>
-            <p>Total Students: 200</p>
+            <p>Total Classrooms: <span>10</span></p>
+            <p>Total Students: <span>200</span></p>
           </div>
 
           {/* Section 2: Recent Finished Challenge Results */}

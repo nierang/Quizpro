@@ -8,6 +8,8 @@ import Library from "./pages/Library/Library";
 import Notifications from "./pages/Notifications/Notifications";
 import Settings from "./pages/Settings/Settings";
 import "./styles/global.css";
+//import { LogIn } from "lucide-react";
+import Login from "./pages/Login/Login";
 
 const App = () => {
   return (
@@ -20,6 +22,7 @@ const App = () => {
           <Route path="/library" element={<Library />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/login" element={<Login />} /> {/* Add Login route */}
         </Routes>
       </Layout>
     </Router>
