@@ -1,45 +1,70 @@
-/react-dashboard/react-dashboard/src/pages/Settings/Settings.module.css
-
-.settingsContainer {
+.settingsPage {
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  min-height: 100vh;
 }
 
-.settingsTitle {
-  font-size: 24px;
+.header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--dark-color);
+  margin-bottom: 30px;
+}
+
+.section {
+  margin-bottom: 16px;
+  background-color: none;
+}
+
+.section h2 {
+  font-size: 22px;
   font-weight: bold;
   margin-bottom: 16px;
+  color: var(--dark-color);
 }
 
-.settingsSection {
-  margin-bottom: 20px;
-}
-
-.settingsLabel {
-  display: block;
-  font-size: 16px;
+.settingRow {
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  background: var(--white-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
   margin-bottom: 8px;
 }
 
-.settingsInput {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.settingRow:hover {
+  background-color: var(--light-color);
 }
 
-.settingsButton {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.settingRow span {
+  font-size: 16px;
+  color: var(--dark-color);
+  margin-left: 16px;
 }
 
-.settingsButton:hover {
-  background-color: #0056b3;
+.settingValue {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: var(--dark-color);
+  margin-right: 16px;
+  gap: 8px;
+}
+
+.settingValue .arrow {
+  margin-left: 8px;
+  font-size: 1.2rem;
+  color: var(--dark-color);
+}
+
+.settingValue.danger {
+  color: var(--danger-color);
+}
+
+.settingRow:last-child {
+  border-bottom: none;
 }

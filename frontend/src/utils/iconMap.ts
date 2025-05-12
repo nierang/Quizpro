@@ -11,6 +11,7 @@ import { ReactComponent as languageIcon } from "../assets/icons/language.svg";
 import { ReactComponent as questiontypeIcon } from "../assets/icons/questiontype.svg";
 import { ReactComponent as subjectsIcon } from "../assets/icons/subjects.svg";
 import { ReactComponent as starIcon } from "../assets/icons/star.svg";
+import { ReactComponent as managementIcon } from "../assets/icons/Management.svg";
 
 export const iconMap = {
   home: HomeIcon,
@@ -26,4 +27,5 @@ export const iconMap = {
   questiontype: questiontypeIcon,
   subjects: subjectsIcon,
   star: starIcon,
+  management: managementIcon,
 };

@@ -1,19 +1,159 @@
-/react-dashboard/react-dashboard/src/pages/MyClass/MyClass.module.css
-
-.myClassContainer {
+.myClassPage {
   padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--dark-color);
+  margin-bottom: 30px;
+}
+
+.headerButtons{
+  display: flex;
+  gap: 8px;
+}
+
+.classTabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom:var(--light-color) 1px solid;
+}
+
+.tab {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--meduimgray-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.tab:hover {
+  border-bottom: var(--secondary-brand) 1px solid;
+  color: var(--secondary-brand);
+}
+
+.activeTab {
+  color: var(--primary-brand);
+  border-bottom: var(--primary-brand) 1px solid;
+}
+
+.classInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.classItem {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.classItem p {
+  display: flex; /* Use Flexbox for alignment */
+  justify-content: center; /* Horizontally center the content */
+  align-items: center; /* Vertically center the content */
+  font-size: 16px;
+  color: var(--gray-color);
+  background-color: var(--white-color);
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.classItem p span {
+  font-size: 32px;
+  color: var(--dark-color);
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+.managementIcon {
+  padding: 10px;
+  width: 23px;
+  height: 24px;
+  border-radius: 5px;
+  background-color: var(--white-color);
+}
+
+.stats {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.accuracy {
+  margin-top: 20px;
+  background-color: var(--white-color);
+  height: 155px; /* Set a fixed height for the accuracy section */
+}
+
+.accuracyItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--white-color);
+  border-radius: 5px;
+}
+
+.accuracyStats div {
+  flex: 1;
+  text-align: center;
+}
+
+.chart h2{
+  font-size: 16px;
+  color: var(--gray-color);
+  font-weight: normal;
+}
+
+.chart {
+  flex: 5;
+  background-color: var(--white-color);
+  padding: 20px;
+  border-radius: 5px;
+  height: 155px; /* Set a fixed height for the chart */
+  overflow: hidden; /* Prevent overflow */
+}
+
+.bottomTabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tabContent {
   background-color: #f9f9f9;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.myClassTitle {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 16px;
+.list ul {
+  list-style: none;
+  padding: 0;
 }
 
-.myClassContent {
-  font-size: 16px;
-  color: #333;
+.list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.list li:last-child {
+  border-bottom: none;
 }
