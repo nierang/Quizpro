@@ -1,16 +1,15 @@
 .button {
-    background-color: #582EED;
+    background-color: var(--primary-brand);
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 50px;
     cursor: pointer;
     font-size: 16px;
-    margin-bottom: 32px;
   }
   
   .button:hover {
-    background-color: #C6BAEF;
-    border-color: #582EED;
+    background-color: var(--secondary-brand);
+    border-color: var(--primary-brand);
     color: white;
   }

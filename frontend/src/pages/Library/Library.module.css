@@ -1,27 +1,119 @@
-/react-dashboard/react-dashboard/src/pages/Library/Library.module.css
-
-.libraryContainer {
+.libraryPage {
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
 }
 
-.libraryTitle {
-  font-size: 24px;
+.navBar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.navButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: normal;
+  border: none;
+  background-color: transparent;
+  color: var(--meduimgray-color);
+  cursor: pointer;
+}
+
+.navButton:hover {
+  color: var(--secondary-brand);
+}
+
+.navButton.active {
+  color: var(--primary-brand);
+  border-bottom: var(--primary-brand) 1px solid;
   font-weight: bold;
-  margin-bottom: 16px;
 }
 
-.libraryItem {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  background-color: #fff;
-  transition: background-color 0.3s;
+
+.challengesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
 }
 
-.libraryItem:hover {
-  background-color: #f0f0f0;
+.challengeCard {
+  background-color: var(--white-color); /* Card background color */
+  border: 1px solid var(--light-color);
+  border-radius: 8px;
+  text-align: left; /* Align all text to the left */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Add spacing between elements */
+}
+
+.challengeCard img {
+  width: 100%; /* Image takes full width of the card */
+  height: 150px; /* Maintain aspect ratio */
+  object-fit: cover;
+  border-radius: 8px 8px 0px 0px; /* Add rounded corners */
+}
+
+.cardtext {
+  padding: 10px 20px 10px 20px; /* Add padding to the text */
+}
+
+.challengeCard h3 {
+  font-size: 16px;
+  font-weight: normal;
+  color: var(--dark-color); /* Title color */
+}
+
+.challengeCard p {
+  margin: 10px 0;
+  font-size: 0.9rem;
+  color: var(--dark-color);
+}
+
+.challengeCard .detailsRow {
+  display: flex;
+  justify-content: flex-start; /* Distribute items evenly in a row */
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--gray-color);
+}
+
+.challengeCard .detailsRow p {
+  border: 1px solid var(--light-color); /* Add a border */
+  background-color: var(--brand-light); /* Add a background color */
+  padding: 5px 10px; /* Add padding for spacing */
+  border-radius: 4px; /* Add rounded corners */
+  font-size: 0.9rem; /* Adjust font size */
+  color: var(--dark-color); /* Text color */
+}
+
+.collectedBy {
+  display: flex; /* Align icon and text in the same row */
+  align-items: center; /* Vertically align the icon and text */
+  gap: 8px; /* Add spacing between the icon and text */
+  font-size: 0.9rem; /* Adjust font size */
+  color: var(--gray-color); /* Text color */
+}
+
+.collectedByIcon {
+  font-size: 1rem; /* Adjust icon size */
+  color: var(--primary-brand); /* Icon color */
+}
+
+.challengeActions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  align-self: flex-end; /* Align buttons to the right */
+}
+
+.detailButton {
+  background-color: var(--white-color);
+  color: var(--dark-color);
+  border: var(--primary-brand) 1px solid;
+  border-radius: 50px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  margin-left: auto;
 }

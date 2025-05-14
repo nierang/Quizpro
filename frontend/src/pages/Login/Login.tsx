@@ -5,12 +5,37 @@ import styles from "./Login.module.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password, "Remember Me:", rememberMe);
-    // Add login logic here
+  
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
+  
+      const data = await response.json();
+      console.log("Login successful:", data);
+  
+      // Handle successful login (e.g., save token, redirect)
+      localStorage.setItem("token", data.token);
+      window.location.href = "/dashboard"; // Redirect to dashboard
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("Login failed. Please check your credentials.");
+    }
   };
 
   return (

@@ -7,7 +7,7 @@ const Browser = () => {
     {
       id: 1,
       image: "https://www.zoo-berlin.de/fileadmin/_processed_/0/4/csm_artenschutzweltweit_galerie2_panda_c322790646.jpg",
-      title: "Math Challenge",
+      title: "Colours: What colour is it?",
       grade: "Grade 5",
       subject: "Math",
       questions: 20,
@@ -16,7 +16,7 @@ const Browser = () => {
     {
       id: 2,
       image: "https://www.wwf.at/wp-content/uploads/2021/05/20final_wwf-at_Panda_Ast_cStaffanWidstrand-1-980x980.jpg",
-      title: "Science Quiz",
+      title: "Science Quiz Colours: What colour is it?",
       grade: "Grade 6",
       subject: "Science",
       questions: 15,
@@ -25,7 +25,7 @@ const Browser = () => {
     {
       id: 3,
       image: "https://www.zoo-berlin.de/fileadmin/_processed_/0/4/csm_artenschutzweltweit_galerie2_panda_c322790646.jpg",
-      title: "History Trivia",
+      title: "History Trivia Colours: What colour is it?",
       grade: "Grade 7",
       subject: "History",
       questions: 25,
