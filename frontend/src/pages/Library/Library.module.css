@@ -1,4 +1,37 @@
+<<<<<<< backend
 /react-dashboard/react-dashboard/src/pages/Library/Library.module.css
+=======
+.libraryPage {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.libraryTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.navBar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.navButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: normal;
+  border: none;
+  background-color: transparent;
+  color: var(--meduimgray-color);
+  cursor: pointer;
+}
+
+.navButton:hover {
+  color: var(--secondary-brand);
+}
+>>>>>>> local
 
 .libraryContainer {
   padding: 20px;

@@ -1,28 +1,64 @@
-.notificationContainer {
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.notificationsPage {
+  padding: 24px;
+  font-family: Arial, sans-serif;
+}
+
+.notificationsTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.notificationsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .notificationItem {
-  margin-bottom: 15px;
-  padding: 15px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  border: 1px solid;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  gap: 0px;
+}
+
+.notificationItem.system {
+  background-color: #e3f2fd; /* Light blue */
+  border-color: #90caf9; /* Blue border */
+}
+
+.notificationItem.teacher {
+  background-color: #e8f5e9; /* Light green */
+  border-color: #a5d6a7; /* Green border */
+}
+
+.notificationItem.student {
+  background-color: #fff8e1; /* Light yellow */
+  border-color: #ffe082; /* Yellow border */
+}
+
+.notificationType {
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .notificationTitle {
   font-weight: bold;
-  color: #333;
+  color: var(--dark-color);
 }
 
 .notificationMessage {
-  color: #666;
+  font-size: 14px;
+  color: var(--dark-color);
 }
 
 .notificationTime {
   font-size: 0.875rem;
-  color: #999;
+  color: var(--gray-color);
+}
+
+.notificationTimestamp {
+  font-size: 12px;
+  color: var(--gray-color);
 }
