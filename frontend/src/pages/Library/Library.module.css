@@ -1,15 +1,15 @@
-<<<<<<< backend
-/react-dashboard/react-dashboard/src/pages/Library/Library.module.css
-=======
 .libraryPage {
   padding: 20px;
   font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  min-height: 100vh;
 }
 
 .libraryTitle {
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 10px;
+  color: var(--dark-color);
+  margin-bottom: 30px;
 }
 
 .navBar {
@@ -31,30 +31,98 @@
 .navButton:hover {
   color: var(--secondary-brand);
 }
->>>>>>> local
 
-.libraryContainer {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.libraryTitle {
-  font-size: 24px;
+.navButton.active {
+  color: var(--primary-brand);
+  border-bottom: var(--primary-brand) 1px solid;
   font-weight: bold;
-  margin-bottom: 16px;
 }
 
-.libraryItem {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  background-color: #fff;
-  transition: background-color 0.3s;
+
+.challengesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
 }
 
-.libraryItem:hover {
-  background-color: #f0f0f0;
+.challengeCard {
+  background-color: var(--white-color); /* Card background color */
+  border: 1px solid var(--light-color);
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left; /* Align all text to the left */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Add spacing between elements */
+}
+
+.challengeCard img {
+  width: 100%; /* Image takes full width of the card */
+  height: 200px; /* Maintain aspect ratio */
+  object-fit: cover;
+  border-radius: 12px; /* Add rounded corners */
+}
+
+.cardtext {
+  padding: 10px 20px 10px 20px; /* Add padding to the text */
+}
+
+.challengeCard h3 {
+  font-size: 1.0rem;
+  color: var(--dark-color); /* Title color */
+}
+
+.challengeCard p {
+  margin: 10px 0;
+  font-size: 0.9rem;
+  color: var(--dark-color);
+}
+
+.challengeCard .detailsRow {
+  display: flex;
+  justify-content: flex-start; /* Distribute items evenly in a row */
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--gray-color);
+}
+
+.challengeCard .detailsRow p {
+  border: 1px solid var(--light-color); /* Add a border */
+  background-color: var(--brand-light); /* Add a background color */
+  padding: 5px 10px; /* Add padding for spacing */
+  border-radius: 4px; /* Add rounded corners */
+  font-size: 0.9rem; /* Adjust font size */
+  color: var(--dark-color); /* Text color */
+}
+
+.collectedBy {
+  display: flex; /* Align icon and text in the same row */
+  align-items: center; /* Vertically align the icon and text */
+  gap: 8px; /* Add spacing between the icon and text */
+  font-size: 0.9rem; /* Adjust font size */
+  color: var(--gray-color); /* Text color */
+}
+
+.collectedByIcon {
+  font-size: 1rem; /* Adjust icon size */
+  color: var(--primary-brand); /* Icon color */
+}
+
+.challengeActions {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  align-items: center; /* Vertically align buttons */
+  gap: 10px; /* Add spacing between buttons */
+  padding: 20px 0px 10px 0px;
+}
+
+.detailButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: normal;
+  background-color: var(--white-color);
+  color: var(--dark-color);
+  border: var(--primary-brand) 1px solid;
+  cursor: pointer;
+  border-radius: 30px;
 }
