@@ -34,7 +34,6 @@
 .tab {
   padding: 10px 20px;
   font-size: 16px;
-  font-weight: bold;
   color: var(--meduimgray-color);
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -46,6 +45,7 @@
 }
 
 .activeTab {
+  font-weight: bold;
   color: var(--primary-brand);
   border-bottom: var(--primary-brand) 1px solid;
 }
