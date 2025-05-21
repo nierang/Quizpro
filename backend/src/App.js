@@ -1,38 +1,339 @@
 
+// **********************************************************************************************************//
+import express from 'express';
+import sqlite3 from 'sqlite3';
+import cors from 'cors';
+import bcrypt from 'bcrypt';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
-
-// final code 
-
-const express = require('express');
-const mysql = require('mysql2');
-const cors = require('cors');
-const path = require('path');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const port = 3000;
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// MySQL Connection
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '123456',
-    database: 'kahoot'
+// SQLite connection
+const db = new sqlite3.Database('./Database.db', sqlite3.OPEN_READWRITE, (err) => {
+  if (err) return console.error('❌ DB connection error:', err.message);
+  console.log('✅ Connected to SQLite database');
 });
 
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL:', err);
-        process.exit(1);
+// Promisify db.all/query for async/await
+import { promisify } from 'util';
+db.allAsync = promisify(db.all).bind(db);
+db.getAsync = promisify(db.get).bind(db);
+db.runAsync = promisify(db.run).bind(db);
+
+
+// ----------------------------Swagger Setup-------------------------------------------------//
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Kahoot-like API',
+      version: '1.0.0',
+      description: 'API for handling users, quizzes, and dashboard for a Kahoot-like app',
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000',
+      },
+    ],
+  },
+  apis: [__filename], // use JSDoc in this file
+};
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
+app.post('/signup', async (req, res) => {
+  const { name, email, password, role_id } = req.body;
+  if (!name || !email || !password || !role_id) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+  const normalizedEmail = email.trim().toLowerCase();
+
+  try {
+    // Check if user exists
+    const [existingUsers] = await db.promise().query('SELECT * FROM users WHERE email = ?', [normalizedEmail]);
+    if (existingUsers.length > 0) {
+      return res.status(409).json({ message: 'User already exists' });
     }
-    console.log('Connected to MySQL');
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password.trim(), 10);
+
+    // Insert new user
+    const [result] = await db.promise().query(
+      'INSERT INTO users (name, email, password, role_id) VALUES (?, ?, ?, ?)',
+      [name.trim(), normalizedEmail, hashedPassword, role_id]
+    );
+
+    return res.status(201).json({
+      message: 'User registered successfully',
+      user: { id: result.insertId, name: name.trim(), email: normalizedEmail, role_id },
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
 });
 
+
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  const normalizedEmail = email.trim().toLowerCase();
+  const cleanPassword = password.trim();
+
+  try {
+    const [users] = await db.promise().query('SELECT * FROM users WHERE email = ?', [normalizedEmail]);
+    if (users.length === 0) return res.status(401).json({ message: 'Invalid email or password' });
+
+    const user = users[0];
+    const match = await bcrypt.compare(cleanPassword, user.password);
+    if (!match) return res.status(401).json({ message: 'Invalid email or password' });
+
+    return res.json({
+      message: 'Login successful',
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role_id: user.role_id,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+/**
+ * @swagger
+ * /dashboard:
+ *   get:
+ *     summary: Get dashboard stats for a teacher
+ *     tags: [Dashboard]
+ *     parameters:
+ *       - in: query
+ *         name: teacherId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Dashboard data
+ */
+app.get('/dashboard', (req, res) => {
+  const teacherId = req.query.teacherId;
+  if (!teacherId) return res.status(400).json({ error: 'teacherId is required' });
+
+  db.query(
+    `
+    SELECT c.id AS classId
+    FROM class_teachers ct
+    JOIN classes c ON ct.class_id = c.id
+    WHERE ct.teacher_id = ?`,
+    [teacherId],
+    (err, classRows) => {
+      if (err) return res.status(500).json({ error: 'Internal Server Error' });
+
+      const classIds = classRows.map(row => row.classId);
+      const totalClassrooms = classIds.length;
+
+      if (totalClassrooms === 0) {
+        return res.json({
+          totalClassrooms: 0,
+          totalStudents: 0,
+          upcomingQuizzes: 0,
+          ongoingQuizzes: 0,
+        });
+      }
+
+      const placeholders = classIds.map(() => '?').join(',');
+
+      db.query(
+        `SELECT COUNT(DISTINCT cs.student_id) AS totalStudents FROM class_students cs WHERE cs.class_id IN (${placeholders})`,
+        classIds,
+        (err, studentRows) => {
+          if (err) return res.status(500).json({ error: 'Internal Server Error' });
+
+          db.query(
+            `
+            SELECT 
+              SUM(CASE WHEN a.due_date > NOW() THEN 1 ELSE 0 END) AS upcomingQuizzes,
+              SUM(CASE WHEN NOW() BETWEEN a.created_at AND a.due_date THEN 1 ELSE 0 END) AS ongoingQuizzes
+            FROM assignments a
+            WHERE a.assigned_to_class IN (${placeholders})
+            `,
+            classIds,
+            (err, quizRows) => {
+              if (err) return res.status(500).json({ error: 'Internal Server Error' });
+
+              const quizStats = quizRows[0] || {};
+              res.json({
+                totalClassrooms,
+                totalStudents: studentRows[0].totalStudents || 0,
+                upcomingQuizzes: quizStats.upcomingQuizzes ?? 0,
+                ongoingQuizzes: quizStats.ongoingQuizzes ?? 0,
+              });
+            }
+          );
+        }
+      );
+    }
+  );
+});
+
+/**
+ * @swagger
+ * /api/assignments/teacher/{teacherId}/details:
+ *   get:
+ *     summary: Get assignments for a teacher
+ *     tags: [Assignments]
+ *     parameters:
+ *       - in: path
+ *         name: teacherId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: List of assignments
+ */
+app.get('/api/assignments/teacher/:teacherId/details', (req, res) => {
+  const teacherId = req.params.teacherId;
+
+  db.query('SELECT name FROM users WHERE id = ?', [teacherId], (err, userResults) => {
+    if (err) return res.status(500).json({ message: 'Internal server error' });
+    if (userResults.length === 0) return res.status(404).json({ message: 'Teacher not found' });
+
+    const teacherName = userResults[0].name;
+
+    db.query(
+      `
+      SELECT 
+        a.id AS assignment_id,
+        g.title AS game_title,
+        s.name AS subject,
+        c.grade_level,
+        COUNT(DISTINCT q.id) AS question_count,
+        DATE_FORMAT(a.created_at, '%Y-%m-%d') AS published_date,
+        (SELECT COUNT(*) FROM likes WHERE likes.assignment_id = a.id) AS likes_count
+      FROM assignments a
+      JOIN games g ON a.game_id = g.id
+      JOIN subjects s ON g.subject_id = s.id
+      LEFT JOIN classes c ON a.assigned_to_class = c.id
+      LEFT JOIN questions q ON g.id = q.game_id
+      WHERE a.assigned_by = ?
+      GROUP BY a.id
+      ORDER BY a.created_at DESC
+      `,
+      [teacherId],
+      (err, results) => {
+        if (err) return res.status(500).json({ message: 'Internal server error' });
+        if (results.length === 0) return res.status(404).json({ message: 'No assignments found' });
+
+        const detailedResults = results.map(item => ({
+          title: item.game_title,
+          subject: item.subject,
+          grade: item.grade_level,
+          questions: item.question_count,
+          published_date: item.published_date,
+          teacher: teacherName,
+          likes: `${item.likes_count} people liked this`,
+        }));
+
+        res.json(detailedResults);
+      }
+    );
+  });
+});
+
+/**
+ * @swagger
+ * /api/games/{gameId}/questions:
+ *   get:
+ *     summary: Get questions for a game
+ *     tags: [Games]
+ *     parameters:
+ *       - in: path
+ *         name: gameId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: List of questions
+ */
+app.get('/api/games/:gameId/questions', async (req, res) => {
+  const { gameId } = req.params;
+  try {
+    const [rows] = await db.promise().query('SELECT * FROM questions WHERE game_id = ?', [gameId]);
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+/** ======================= My class ======================= **/
+
+app.get('/students-count', async (req, res) => {
+  try {
+    // Get teacher_id and class_name from query parameters
+    const teacherId = parseInt(req.query.teacher_id, 10);
+    const className = req.query.class_name;
+
+    if (!teacherId || !className) {
+      return res.status(400).json({ error: 'teacher_id and class_name are required query params' });
+    }
+
+    const query = `
+      SELECT 
+        c.name AS class_name,
+        COUNT(cs.student_id) AS student_count
+      FROM classes c
+      JOIN class_teachers ct ON ct.class_id = c.id
+      JOIN class_students cs ON cs.class_id = c.id
+      WHERE ct.teacher_id = $1
+        AND c.name = $2
+      GROUP BY c.name;
+    `;
+
+    const { rows } = await pool.query(query, [teacherId, className]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: 'No data found for given teacher and class' });
+    }
+
+    res.json(rows[0]);
+  } catch (error) {
+    console.error('Error executing query:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+// Start server
+app.listen(port, () => {
+  console.log(`🚀 Server is running at http://localhost:${port}`);
+  console.log(`📘 Swagger docs available at http://localhost:${port}/api-docs`);
+});
+
+// **********************************************************************************************************//
 /** ======================= SCHOOL MANAGEMENT ======================= **/
 
 app.get('/schools', (req, res) => {
@@ -594,125 +895,15 @@ app.get('/recent-games', (req, res) => {
   });
 // ----------------------------------------------------------------------------------------------------------------
 
-// Login API
-app.post('/login', (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ message: 'Missing email or password' });
-  }
-
-  db.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], (err, results) => {
-    if (err) {
-      console.error('Database error:', err);
-      return res.status(500).json({ message: 'Database error' });
-    }
-
-    if (results.length > 0) {
-      // Fix: send `teacher` instead of `user`
-      res.json({ message: 'Login successful', teacher: results[0] });
-    } else {
-      res.status(401).json({ message: 'Invalid email or password' });
-    }
-  });
-});
 
 /** ======================= DASHBOARD ======================= **/
 
-app.get('/dashboard', (req, res) => {
-    const teacherId = req.query.teacherId;
-  
-    if (!teacherId) {
-      return res.status(400).json({ error: 'teacherId is required' });
-    }
-  
-    console.log("Received request for teacherId:", teacherId);
-  
-    db.query(
-      `
-      SELECT c.id AS classId
-      FROM class_teachers ct
-      JOIN classes c ON ct.class_id = c.id
-      WHERE ct.teacher_id = ?
-      `,
-      [teacherId],
-      (err, classRows) => {
-        if (err) {
-          console.error("Error querying classes:", err);
-          return res.status(500).json({ error: 'Internal Server Error' });
-        }
-  
-        const classIds = classRows.map(row => row.classId);
-        const totalClassrooms = classIds.length;
-  
-        if (totalClassrooms === 0) {
-          return res.json({
-            totalClassrooms: 0,
-            totalStudents: 0,
-            upcomingQuizzes: 0,
-            ongoingQuizzes: 0
-          });
-        }
-  
-        const placeholders = classIds.map(() => '?').join(',');
-  
-        // Step 1: Count total students
-        db.query(
-          `
-          SELECT COUNT(DISTINCT cs.student_id) AS totalStudents
-          FROM class_students cs
-          WHERE cs.class_id IN (${placeholders})
-          `,
-          classIds,
-          (err, studentRows) => {
-            if (err) {
-              console.error("Error querying students:", err);
-              return res.status(500).json({ error: 'Internal Server Error' });
-            }
-  
-            // Step 2: Count quizzes
-            db.query(
-              `
-              SELECT 
-                SUM(CASE WHEN a.due_date > NOW() THEN 1 ELSE 0 END) AS upcomingQuizzes,
-                SUM(CASE WHEN NOW() BETWEEN a.created_at AND a.due_date THEN 1 ELSE 0 END) AS ongoingQuizzes
-              FROM assignments a
-              WHERE a.assigned_to_class IN (${placeholders})
-              `,
-              classIds,
-              (err, quizRows) => {
-                if (err) {
-                  console.error("Error querying quizzes:", err);
-                  return res.status(500).json({ error: 'Internal Server Error' });
-                }
-  
-                const quizStats = quizRows[0] || {};
-                const upcomingQuizzes = quizStats.upcomingQuizzes ?? 0;
-                const ongoingQuizzes = quizStats.ongoingQuizzes ?? 0;
-  
-                return res.json({
-                  totalClassrooms,
-                  totalStudents: studentRows[0].totalStudents || 0,
-                  upcomingQuizzes,
-                  ongoingQuizzes
-                });
-              }
-            );
-          }
-        );
-      }
-    );
-  });
-  
   
   
   
 
 /** ======================= SERVER START ======================= **/
 
-app.listen(port, () => {
-    console.log(`🚀 Server is running at http://localhost:${port}`);
-});
 
 
 
