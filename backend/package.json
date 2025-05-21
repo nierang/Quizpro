@@ -15,7 +15,10 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "mysql2": "^3.14.1",
+<<<<<<< HEAD
     "sqlite3": "^5.1.7",
+=======
+>>>>>>> 7d608d2a565d90f3d0d94e49888707ab1987df24
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "webpack": "^5.99.8",
