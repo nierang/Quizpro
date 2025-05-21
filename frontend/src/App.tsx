@@ -10,6 +10,7 @@ import Settings from "./pages/Settings/Settings";
 import "./styles/global.css";
 //import { LogIn } from "lucide-react";
 import Login from "./pages/Login/Login";
+import ChallengeDetails from "./pages/Library/ChallengeDetail"; // adjust path if needed
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/login" element={<Login />} /> {/* Add Login route */}
+          <Route path="/challenge/:id" element={<ChallengeDetails />} />
         </Routes>
       </Layout>
     </Router>

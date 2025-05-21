@@ -7,11 +7,29 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Email:", email, "Password:", password, "Remember Me:", rememberMe);
-    // Add login logic here
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try {
+    const response = await fetch("http://localhost:3000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    if (!response.ok) {
+      // Handle error (e.g., show message)
+      alert("Invalid email or password");
+      return;
+    }
+    const data = await response.json();
+    // Save user info/token if needed, redirect, etc.
+    console.log("Login successful:", data);
+    // Example: redirect to home
+    // navigate("/");
+  } catch (error) {
+    alert("Login failed. Please try again.");
+    console.error(error);
+  }
+};
 
   return (
     <div className={styles.loginPage}>

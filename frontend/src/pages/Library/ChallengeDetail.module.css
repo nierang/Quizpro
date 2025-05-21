@@ -1,0 +1,119 @@
+.challengeDetailsPage {
+  padding: 32px;
+  background: var(--background-color);
+  min-height: 100vh;
+}
+
+.challengeHeader {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 32px;
+  align-items: flex-start;
+}
+
+.coverImage {
+  width: 280px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.challengeInfo {
+  flex: 1;
+}
+
+.challengeName {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: var(--dark-color);
+}
+
+.challengeDescription {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  color: var(--gray-color);
+}
+
+.challengeMeta {
+  display: flex;
+  gap: 24px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: var(--dark-color);
+}
+
+.challengeActions {
+  display: flex;
+  gap: 12px;
+}
+
+.tryButton {
+  background: var(--secondary-brand);
+  color: #fff;
+}
+
+.assignButton {
+  background: var(--primary-brand);
+  color: #fff;
+}
+
+.editButton {
+  background: var(--brand-light);
+  color: var(--primary-brand);
+}
+
+.publishButton {
+  background: #4caf50;
+  color: #fff;
+}
+
+.questionsSection {
+  margin-top: 32px;
+}
+
+.questionsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.questionItem {
+  margin-bottom: 24px;
+}
+
+.questionText {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.optionsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.option {
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  background: var(--white-color);
+  border: 1px solid var(--light-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.correct {
+  background: #e8f5e9;
+  border-color: #4caf50;
+  color: #388e3c;
+  font-weight: bold;
+}
+
+.correctMark {
+  margin-left: 8px;
+  color: #4caf50;
+  font-size: 1.2em;
+}

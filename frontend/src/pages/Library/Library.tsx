@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { iconMap } from "../../utils/iconMap";
 import Button from "../../components/ui/Button";
 import styles from "./Library.module.css";
 
 const Library = () => {
   const [activeTab, setActiveTab] = useState("All Content");
+  const navigate = useNavigate();
 
   const challenges = [
     {
@@ -70,10 +72,14 @@ const Library = () => {
       questions: 15,
       collectedBy: 200,
     },
-  ]
+  ];
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
+  };
+
+  const handleDetailsClick = (challengeId: number) => {
+    navigate(`/challenge/${challengeId}`);
   };
 
   return (
@@ -109,7 +115,12 @@ const Library = () => {
                 <span>{challenge.collectedBy} people liked</span>
               </div>
               <div className={styles.challengeActions}>
-                <Button className={styles.detailButton}>Details</Button>
+                <Button
+                  className={styles.detailButton}
+                  onClick={() => handleDetailsClick(challenge.id)}
+                >
+                  Details
+                </Button>
                 <Button className={styles.assignButton}>Assign</Button>
               </div>
             </div>
